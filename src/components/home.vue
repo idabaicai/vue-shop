@@ -17,6 +17,8 @@
             :unique-opened="true"
             :collapse-transition="false"
             :collapse="collapse"
+            :default-active="activePath"
+            :router="true"
             class="el-menu-vertical-demo"
             background-color="#545c64"
             text-color="#fff"
@@ -30,11 +32,12 @@
                 <i :class="icons[index]"></i>
                 <span>{{ item.authName }}</span>
               </template>
-              <!-- 二级菜单 -->
+              <!-- 二级菜单 index:开启路由后跳转的链接 -->
                 <el-menu-item 
-                :index="subItem.id + ''"
+                :index="'/'+subItem.path"
                 v-for="subItem in item.children"
                 :key="subItem.id"
+                @click="currentPath('/'+subItem.path)"
                 ><i class="el-icon-menu"></i>
                   <span>{{ subItem.authName }}</span>
                 </el-menu-item>
@@ -43,7 +46,9 @@
         </el-aside>
         <el-container>
           <!-- 主题 -->
-          <el-main>Main</el-main>
+          <el-main class="main">
+            <router-view></router-view>
+          </el-main>
           <!-- 底部 -->
           <el-footer>Footer</el-footer>
         </el-container>
@@ -65,30 +70,41 @@ export default {
         'el-icon-pie-chart'
       ],
       // 菜单是否折叠
-      collapse: false
+      collapse: false,
+      // 当前选中的菜单
+      activePath: ''
     }
+  },
+  mounted () {
+  },
+  updated () {
   },
   created () {
     // 获取菜单
     this.getMenuList()
   },
   methods: {
+    // 退出
     logout () {
       sessionStorage.clear()
       this.$router.push('/login')
     },
-    // 简化Promise操作
+    // 请求菜单数据   async简化Promise操作
     async getMenuList () {
       const { data: res } = await this.$http.get('menus')
       if ( res.meta.status === 200 ) {
         this.menus = res.data
-        console.log(res.data)
       } else {
         return this.$message.error(res.meta.msg)
       }
     },
+    // 折叠菜单
     toggle () {
       this.collapse = !this.collapse
+    },
+    // 当前激活的路由
+    currentPath (path) {
+      this.activePath = path
     }
   }
 }
@@ -110,6 +126,9 @@ export default {
   }
   .el-menu {
     border: none;
+  }
+  main.el-main {
+    line-height: 30px;
   }
   .el-footer{
     background-color: #606266;

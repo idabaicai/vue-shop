@@ -13,7 +13,16 @@ import {
   Menu,
   Submenu,
   MenuItem,
-  MenuItemGroup
+  MenuItemGroup,
+  Breadcrumb,
+  BreadcrumbItem,
+  Card,
+  Row,
+  Col,
+  Select,
+  Option,
+  Table,
+  TableColumn
 } from 'element-ui'
 
 Vue.use(Button)
@@ -29,5 +38,14 @@ Vue.use(Menu)
 Vue.use(MenuItem)
 Vue.use(MenuItemGroup)
 Vue.use(Submenu)
+Vue.use(Breadcrumb)
+Vue.use(BreadcrumbItem)
+Vue.use(Card)
+Vue.use(Row)
+Vue.use(Col)
+Vue.use(Select)
+Vue.use(Option)
+Vue.use(Table)
+Vue.use(TableColumn)
 // 挂载到Vue的prototype上
 Vue.prototype.$message = Message
