@@ -49,8 +49,8 @@ export default {
   data () {
     return {
       form: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '123456'
       },
       rules: {
         username: [
@@ -81,7 +81,7 @@ export default {
               message: res.meta.msg,
               type: 'success'
             })
-            console.log(res)
+            // console.log(res)
             const token = res.data.token
             // 1. 保存token到sessionStorage中
             window.sessionStorage.setItem('token', token)
