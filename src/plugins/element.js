@@ -22,7 +22,10 @@ import {
   Select,
   Option,
   Table,
-  TableColumn
+  TableColumn,
+  Switch,
+  Tooltip,
+  Pagination
 } from 'element-ui'
 
 Vue.use(Button)
@@ -47,5 +50,8 @@ Vue.use(Select)
 Vue.use(Option)
 Vue.use(Table)
 Vue.use(TableColumn)
+Vue.use(Switch)
+Vue.use(Tooltip)
+Vue.use(Pagination)
 // 挂载到Vue的prototype上
 Vue.prototype.$message = Message
