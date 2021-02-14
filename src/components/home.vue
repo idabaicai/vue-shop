@@ -9,8 +9,8 @@
         <!-- 侧边栏 -->
         <el-aside :width="collapse ? '64px' : '200px'">
           <!-- 折叠按钮 -->
-          <div 
-          class="toggle-button" 
+          <div
+          class="toggle-button"
           @click="toggle"
           >|||</div>
           <el-menu
@@ -24,7 +24,7 @@
             text-color="#fff"
             active-text-color="#ffd04b">
             <!-- 一级菜单 -->
-            <el-submenu 
+            <el-submenu
             :index="index.toString()"
             v-for="(item, index) in menus"
             :key="item.id"
@@ -33,7 +33,7 @@
                 <span>{{ item.authName }}</span>
               </template>
               <!-- 二级菜单 index:开启路由后跳转的链接 -->
-                <el-menu-item 
+                <el-menu-item
                 :index="'/'+subItem.path"
                 v-for="subItem in item.children"
                 :key="subItem.id"
@@ -92,7 +92,7 @@ export default {
     // 请求菜单数据   async简化Promise操作
     async getMenuList () {
       const { data: res } = await this.$http.get('menus')
-      if ( res.meta.status === 200 ) {
+      if (res.meta.status === 200) {
         this.menus = res.data
       } else {
         return this.$message.error(res.meta.msg)
@@ -153,7 +153,7 @@ export default {
     text-align: center;
     line-height: 160px;
   }
- 
+
   .container {
     height: 100%;
   }

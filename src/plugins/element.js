@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import {
-  Button, 
-  Form, 
-  FormItem, 
-  Input, 
-  Message, 
+  Button,
+  Form,
+  FormItem,
+  Input,
+  Message,
   Container,
   Header,
   Aside,
