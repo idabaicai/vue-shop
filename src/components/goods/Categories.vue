@@ -90,6 +90,7 @@
   <el-dialog
    title="添加分类"
    width="50%"
+   @close="closeDialog"
    :visible.sync="addItemDialogVisiable">
     <el-form :model="form" ref="formRef" :rules="rules">
       <el-form-item label="分类名称" prop="cat_name" label-width="100px">
@@ -97,6 +98,7 @@
       </el-form-item>
       <el-form-item label="父级分类" label-width="100px">
         <el-cascader
+          clearable
           expand-trigger="hover"
           v-model="selectedKeys"
           :options="parentCateList"
@@ -108,7 +110,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="addItemDialogVisiable = false">取 消</el-button>
-      <el-button type="primary" @click="addItemDialogVisiable = false">确 定</el-button>
+      <el-button type="primary" @click="addCat">确 定</el-button>
     </div>
   </el-dialog>
   </div>
@@ -200,8 +202,45 @@ export default {
       }
     },
     // 父级分类选择器发生改变
-    parentCateChanged (val) {
-      console.log(val)
+    parentCateChanged () {
+      console.log(this.selectedKeys)
+      // 选中父级分类
+      const len = this.selectedKeys.length
+      if (len > 0) {
+        this.form.cat_pid = this.selectedKeys[len - 1]
+        this.form.cat_level = len
+      } else {
+        this.form.cat_pid = 0
+        this.form.cat_level = 0
+      }
+    },
+    // 添加分类
+    addCat () {
+      this.$refs.formRef.validate(async valid => {
+        // 验证通过
+        if (valid) {
+          const { data: res } = await this.$http.post('categories', this.form)
+          // console.log(this.form)
+          // console.log(res)
+          if (res.meta.status === 201) {
+            this.$message.success('添加成功')
+            // 重新获取数据
+            this.getCateList()
+          } else {
+            this.$message.error(res.meta.msg)
+          }
+        } else {
+          this.$message.error('请正确填写表单')
+        }
+      })
+    },
+    // 添加分类对话框关闭
+    closeDialog () {
+      // 重置表单
+      this.$refs.formRef.resetFields()
+      this.selectedKeys = []
+      this.form.cat_id = 0
+      this.form.cat_level = 0
     },
     // 每页显示条数
     handleSizeChange (val) {
@@ -222,7 +261,6 @@ export default {
       })
       if (res.meta.status === 200) {
         this.list = res.data.result
-        console.log(res.data.result)
         this.total = res.data.total
       } else {
         this.$message.error('获取商品分类失败')
@@ -241,8 +279,5 @@ export default {
 }
 .el-cascader {
   width: 100%;
-}
-.el-cascader .el-cascader-menu {
-  height: 300px !important;
 }
 </style>

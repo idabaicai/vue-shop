@@ -17,6 +17,6 @@ html, body, #app {
     color: #F56C6C;
     font-size: 16px;
 }
-.el-cascader .el-cascader-menu {
-    height: 300px !important;
+.el-cascader-menu {
+    height: 300px;
 }

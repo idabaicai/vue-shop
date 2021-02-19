@@ -45,6 +45,7 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -69,7 +70,7 @@ export default {
       this.$refs[formRef].validate(async valid => {
         if (valid) {
         //   alert('submit!')
-          const { data: res } = await this.$http.post('login', this.form)
+          const { data: res } = await axios.post('login', this.form)
           if (res.meta.status !== 200) {
             this.$message({
               message: res.meta.msg,
