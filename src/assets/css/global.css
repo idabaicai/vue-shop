@@ -9,3 +9,14 @@ html, body, #app {
     margin-top: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .15);
 }
+.el-icon-success {
+    color: #67C23A;
+    font-size: 16px;
+}
+.el-icon-error {
+    color: #F56C6C;
+    font-size: 16px;
+}
+.el-cascader .el-cascader-menu {
+    height: 300px !important;
+}
