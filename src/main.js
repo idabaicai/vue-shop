@@ -7,7 +7,10 @@ import './assets/css/global.css'
 
 // 导入axios
 import axios from 'axios'
-
+// tree-table
+import TreeTable from 'vue-table-with-tree-grid'
+// tree-table 插件
+Vue.component('tree-table', TreeTable)
 // 配置请求拦截器
 axios.interceptors.request.use(config => {
   config.headers.Authorization = sessionStorage.getItem('token')
